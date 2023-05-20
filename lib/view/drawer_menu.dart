@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:squck_admin/controller/drawer_menu_controller.dart';
 
 import '../core/colors.dart';
 import '../core/images_path.dart';
 import '../widgets/drawer_List.dart';
 
-class DrawerMenu extends StatelessWidget {
+class DrawerMenu extends GetView<DrawerMenuController> {
   const DrawerMenu({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    Get.put(DrawerMenuController());
     return Drawer(
       elevation: 0,
       child: SingleChildScrollView(
@@ -34,7 +37,10 @@ class DrawerMenu extends StatelessWidget {
                   color: kSecondaryColor,
                 ),
                 text: "Dashboard",
-                press: () {},
+                press: () {
+                  controller.isLoading.value;
+
+                },
               ),
               DrawerListTile(
                 icons: Image.asset(
