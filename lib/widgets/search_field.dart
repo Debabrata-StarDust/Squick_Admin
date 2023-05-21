@@ -14,7 +14,7 @@ class SearchField extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.only(left: 10),
       width: Get.width * 0.2,
-      height: Get.width * 0.03,
+       height: Get.height * 0.06,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),

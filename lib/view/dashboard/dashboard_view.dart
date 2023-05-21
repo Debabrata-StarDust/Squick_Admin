@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:squck_admin/controller/year_search_controller.dart';
 import 'package:squck_admin/core/colors.dart';
 import 'package:squck_admin/core/images_path.dart';
 
 import '../../widgets/search_field.dart';
-import '../../widgets/year_search.dart';
 
 class DashboardView extends StatefulWidget {
   const DashboardView({Key? key}) : super(key: key);
@@ -19,6 +17,12 @@ DateTime time = DateTime.now();
 TimeOfDay currentTime = TimeOfDay.now();
 String formattedDate = DateFormat.yMMMMd().format(time);
 
+List yearSearch = [
+  {"title": "2022", "value": "1"},
+  {"title": "2023", "value": "2"},
+  {"title": "2024", "value": "3"},
+];
+
 class _DashboardViewState extends State<DashboardView> {
   @override
   Widget build(BuildContext context) {
@@ -29,6 +33,7 @@ class _DashboardViewState extends State<DashboardView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Header Part //
               Row(
                 children: [
                   RichText(
@@ -64,27 +69,59 @@ class _DashboardViewState extends State<DashboardView> {
                   ])),
                   const Spacer(),
                   const SearchField(
-                    hintTextName: "Search..",
+                    hintTextName: "Search",
                     icons: Icon(Icons.search),
                   ),
                   // Drop Down Button
-                  YearSearch(
-                    value: "0",
-                    text: "Option !",
+                  // const YearSearch(
+                  //   value: "0",
+                  //   text: "Option !",
+                  // ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 10),
+                    width: Get.width * 0.1,
+                    height: Get.height * 0.06,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: kBlueGrayColor),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: DropdownButton(
+                        borderRadius: BorderRadius.circular(10),
+                        elevation: 0,
+                        underline: Container(),
+                        items: [
+                          const DropdownMenuItem<String>(
+                            value: "",
+                            child: Text(
+                              "This Year",
+                            ),
+                          ),
+                          ...yearSearch.map<DropdownMenuItem<String>>((e) {
+                            return DropdownMenuItem(
+                              child: Text(e["title"]),
+                              value: e["value"],
+                            );
+                          }).toList(),
+                          // DropdownMenuItem(
+                          //   value: "2",
+                          //   child: Text(" 2023"),
+                          // ),
+                          // DropdownMenuItem(
+                          //   value: "3",
+                          //   child: Text("2024"),
+                          // ),
+                        ],
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            newValue;
+                          });
+                        }),
                   ),
-                  YearSearch(
-                    value: "2",
-                    text: "Option !",
-                  ),
-                  YearSearch(
-                    value: "3",
-                    text: "Option !",
-                  ),
+
                   //Notification
                   Container(
                     margin: const EdgeInsets.only(left: 10),
                     width: Get.width * 0.04,
-                    height: Get.width * 0.03,
+                    height: Get.height * 0.06,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -105,7 +142,7 @@ class _DashboardViewState extends State<DashboardView> {
                   Container(
                     margin: const EdgeInsets.only(left: 10),
                     width: Get.width * 0.04,
-                    height: Get.width * 0.03,
+                    height: Get.height * 0.06,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -123,7 +160,7 @@ class _DashboardViewState extends State<DashboardView> {
                   // Profile
                   Container(
                     width: Get.width * 0.05,
-                    height: Get.width * 0.03,
+                    height: Get.height * 0.06,
                     alignment: Alignment.center,
                     child: Image.asset(
                       user,
@@ -133,14 +170,113 @@ class _DashboardViewState extends State<DashboardView> {
                   ),
                 ],
               ),
+              SizedBox(
+                height: Get.height * 0.1,
+              ),
+              // Body Part //
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  salesView(),
+                  salesView(),
+                  salesView(),
+                  Container(
+                    width: Get.width * 0.2,
+                    height: Get.height * 0.7,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: kBlueGrayColor,
+                        )),
+                    child: SingleChildScrollView(
+                      child: SizedBox(
+                        height: Get.height * 0.7,
+                        child: ListView.builder(itemBuilder: (context, index) {
+                          return Container();
+                        }),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ],
           ),
         ),
       ),
     );
   }
+
+  Container salesView() {
+    return Container(
+      height: Get.height * 0.2,
+      width: 230,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: kBlueGrayColor,
+          )),
+      child: ListView(
+        padding: const EdgeInsets.only(top: 10, right: 10, left: 10),
+        children: [
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: Image.asset(
+                  shopping,
+                  width: 20,
+                  height: 20,
+                  color: kPrimaryColor,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      color: Colors.green.shade200),
+                  child: Image.asset(
+                    salesUp,
+                    width: 15,
+                    height: 15,
+                    color: Colors.green,
+                  ),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.only(right: 8.0),
+                child: Text(
+                  "+16.24%",
+                  style: TextStyle(color: Colors.green),
+                ),
+              )
+            ],
+          ),
+          const SizedBox(
+            height: 25,
+          ),
+          RichText(
+              text: const TextSpan(children: [
+            TextSpan(
+                text: "Total Sales\n",
+                style: TextStyle(
+                  color: kBlueGrayColor,
+                )),
+            TextSpan(
+                text: "\$23,090.00\n",
+                style: TextStyle(
+                  color: kBlackColor,
+                  fontSize: 22,
+                )),
+            TextSpan(
+                text: "Compare to (\$17,00.00 last year)",
+                style: TextStyle(
+                  color: kBlueGrayColor,
+                )),
+          ]))
+        ],
+      ),
+    );
+  }
 }
-
-
-
-
