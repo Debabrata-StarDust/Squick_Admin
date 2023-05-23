@@ -5,6 +5,7 @@ import 'package:squck_admin/core/colors.dart';
 import 'package:squck_admin/core/images_path.dart';
 
 import '../../widgets/search_field.dart';
+import 'fl_chart.dart';
 
 class DashboardView extends StatefulWidget {
   const DashboardView({Key? key}) : super(key: key);
@@ -82,7 +83,7 @@ class _DashboardViewState extends State<DashboardView> {
                     border: Border.all(width: 1, color: kBlueGrayColor),
                     borderRadius: BorderRadius.circular(10)),
                 child: DropdownButton(
-                    borderRadius: BorderRadius.circular(10),
+                    // borderRadius: BorderRadius.circular(10),
                     elevation: 0,
                     underline: Container(),
                     items: [
@@ -276,16 +277,10 @@ class _DashboardViewState extends State<DashboardView> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Container(
-                      width: 200,
-                      height: 200,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: kBlueGrayColor),
-                    )
+                    const FlChart()
                   ],
                 ),
-                recentSales()
+                recentSales(),
               ],
             ),
           ),
@@ -301,27 +296,81 @@ class _DashboardViewState extends State<DashboardView> {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: kBlueGrayColor,
+            color: kWhiteColor,
           )),
       child: SizedBox(
         height: Get.height * 0.7,
-        child: ListView.builder(
-            itemCount: 27,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return SingleChildScrollView(
-                child: ListTile(
-                  leading: Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: kBlueGrayColor,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(left: 20, top: 20, bottom: 10),
+                  child: Text(
+                    "Recent Sales",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
-              );
-            }),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 100, top: 20, bottom: 10),
+                  child: Image.asset(
+                    manuDots,
+                    width: 25,
+                    height: 25,
+                  ),
+                )
+              ],
+            ),
+            Expanded(
+              child: ListView.separated(
+                itemCount: 27,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        color: kBlueGrayColor,
+                      ),
+                    ),
+                    title: const Text(
+                      "Henry Reshbord",
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    subtitle: const Text(
+                      "5 min ago",
+                      style: TextStyle(
+                        fontSize: 11,
+                      ),
+                    ),
+                    trailing: const Text(
+                      "\$17,00.00",
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.green,
+                      ),
+                    ),
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return const SizedBox(
+                    height: 2,
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -333,7 +382,7 @@ class _DashboardViewState extends State<DashboardView> {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: kBlueGrayColor,
+            color: kWhiteColor,
           )),
       child: ListView(
         padding: const EdgeInsets.only(top: 10, right: 10, left: 10),

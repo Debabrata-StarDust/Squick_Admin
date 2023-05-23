@@ -17,3 +17,4 @@ const String shopping = "images/icons/shopping-cart.png";
 const String salesUp = "images/icons/arrow-trend-up.png";
 const String salesDown = "images/icons/arrow-trend-down.png";
 const String salesAnalysis = "images/icons/check-box.png";
+const String manuDots = "images/icons/menu-dots.png";
