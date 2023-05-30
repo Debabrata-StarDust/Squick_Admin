@@ -18,41 +18,33 @@ class _MainViewState extends State<MainView> {
     return Scaffold(
       body: SafeArea(
         child: ScreenTypeLayout(
-          mobile: MobileView(),
-          desktop: DesktopView(),
+          mobile: Container(),
+          desktop: Row(
+            children: [
+              // Default Drawer
+              Expanded(
+                  child: SizedBox(
+                    width: Get.width,
+                    height: Get.height,
+                    child: const DrawerMenu(),
+                  )),
+              // Default View Screen
+              Expanded(
+                  flex: 4,
+                  child: Container(
+                    margin: const EdgeInsets.only(right: 20, top: 10, bottom: 10),
+                    width: Get.width,
+                    height: Get.height,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: kSecondaryColor,
+                    ),
+                    child: const DashboardView(),
+                  )),
+            ],
+          )
         ),
       ),
-    );
-  }
-
-  Widget MobileView() {
-    return Container();
-  }
-
-  Widget DesktopView() {
-    return Row(
-      children: [
-        // Default Drawer
-        Expanded(
-            child: SizedBox(
-          width: Get.width,
-          height: Get.height,
-          child: const DrawerMenu(),
-        )),
-        // Default View Screen
-        Expanded(
-            flex: 4,
-            child: Container(
-              margin: const EdgeInsets.only(right: 20, top: 10, bottom: 10),
-              width: Get.width,
-              height: Get.height,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: kSecondaryColor,
-              ),
-              child: const DashboardView(),
-            )),
-      ],
     );
   }
 }
